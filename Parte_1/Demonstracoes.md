@@ -14,45 +14,45 @@ Uma prova direta é um método onde partimos de hipóteses ou premissas conhecid
 
 **Passo 1**: Defina dois números pares. Um número par é divisível por 2, então podemos escrever:
 	
-- Seja a = 2k e b = 2m, onde k e m são inteiros
+	Seja a = 2k e b = 2m, onde k e m são inteiros
 	
 **Passo 2**: Some os dois números:
 	
-- a+b = 2k + 2m
+	a+b = 2k + 2m
 	
 **Passo 3**: Fator comum:
 	
-- a+b = 2(k+m)
+	 a+b = 2(k+m)
 	
 **Passo 4**: Conclusão:
 	
-- a + b é múltiplo de 2, portanto, é par.
+	a + b é múltiplo de 2, portanto, é par.
 
 ### Exemplo 2: Provar que o produto de dois números ímpares é ímpar.
 
 **Passo 1**: Defina dois números ímpares. Um número ímpar pode ser escrito como 2n+1:
 	
-- Seja a = 2k + 1 e b = 2m + 1, onde k e m são inteiros.
+	Seja a = 2k + 1 e b = 2m + 1, onde k e m são inteiros.
 	
 **Passo 2**: Multiplique os dois números:
 	
-- a×b = (2k + 1) (2m + 1)
+	 a×b = (2k + 1) (2m + 1)
 	
 **Passo 3**: Expanda o produto:
 	
-- a×b = 4km + 2k + 2m + 1
+	 a×b = 4km + 2k + 2m + 1
 	
 **Passo 4**: Simplifique:
 	
-- a×b = 2 (2km + k +  m) + 1
+	 a×b = 2 (2km + k +  m) + 1
 	
 **Passo 5**: Como 2km + k + m é inteiro, podemos chamar de nnn
 	
-- a×b = 2n + 1
+	 a×b = 2n + 1
 	
 **Passo 6**: Conclusão:
 	
-- O produto é da forma 2n + 1, logo, é ímpar.
+	 O produto é da forma 2n + 1, logo, é ímpar.
 
 
 ---
@@ -78,7 +78,7 @@ Na prova por contradição, assumimos que a afirmação que queremos provar é f
 	
 **Passo 3**: Contradição:
 	
-- r/2 < r, o que contradiz a suposição de que r é o menor número racional positivo.
+	 r/2 < r, o que contradiz a suposição de que r é o menor número racional positivo.
 
 **Conclusão**: Não existe o menor número racional positivo.
 
@@ -90,7 +90,7 @@ Na prova por contradição, assumimos que a afirmação que queremos provar é f
 	
 **Passo 3**: Analisando Q:
 	
--  Q não é divisível por nenhum dos primos pi​, pois resta 1 em cada divisão.
+	  Q não é divisível por nenhum dos primos pi​, pois resta 1 em cada divisão.
 	
 **Passo 4**: Portanto, Q é primo ou tem um fator primo não listado.
 
