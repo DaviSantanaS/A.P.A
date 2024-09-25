@@ -194,3 +194,40 @@ A indução matemática é um método de prova usado para mostrar que uma afirma
 
 - A afirmação é verdadeira para n = k + 1.
 - Portanto, por indução, a soma dos n primeiros números ímpares é n^2.
+## OFF topic
+###### Funções
+
+- **Injetiva (Um-para-Um)**: Cada elemento do domínio mapeia para um elemento distinto do contradomínio.
+- **Sobrejetiva (Sobre)**: O contradomínio é totalmente coberto pela função.
+- **Bijetiva**: Função que é injetiva e sobrejetiva.
+
+###### Conjuntos e Operações
+
+- **União (U)**: Todos os elementos que estão em pelo menos um dos conjuntos.
+- **Interseção (∩)**: Elementos comuns a ambos os conjuntos.
+- **Diferença**: Elementos que estão em um conjunto e não no outro.
+###### Lei da Contraposição
+- A **Lei da Contraposição** afirma que uma implicação é logicamente equivalente à sua contrarrecíproca. A contrarrecíproca de uma proposição condicional P  ⟹  Q é ¬Q  ⟹  ¬P.
+- Como exemplo teriamos: (Se está chovendo, então a grama está molhada) ⟹ (Se a grama não está molhada, então não está chovendo)
+
+###### Lei da Dupla Negação
+- ¬(¬P) ≡ P
+
+###### Lei da Distributividade
+A **Lei da Distributividade** permite distribuir operações lógicas da mesma forma que fazemos com operações aritméticas.
+
+- **Forma geral para AND sobre OR**:  
+		P ∧ ( Q ∨ R) ≡ (P ∧ Q) ∨ (P ∧ R)
+- **Forma geral para OR sobre AND**:  
+	    P ∨ (Q ∧ R) ≡ (P ∨ Q) ∧ (P ∨ R)
+    
+- **Exemplo**  : Distribuindo a conjunção em uma disjunção, "Estou em casa **e** (estou lendo **ou** assistindo TV)" é equivalente a "(Estou em casa **e** lendo) **ou** (Estou em casa **e** assistindo TV)."
+
+##### Leis de Morgan
+###### Primeira Lei de Morgan
+
+- A primeira lei diz que negar duas proposições ligadas com **“e”** – ou seja, uma conjunção – é o mesmo que negar duas proposições e ligá-las com **“ou”,** ou seja, transformá-las em uma disjunção. leis de morgan Considere que “p” e “q” são duas proposições. Simbolicamente a primeira lei pode ser  representada por: ~ (p ? q) = (~ p) ? (~ q) Em outras palavras: Não (p e q) é igual a (não p) ou (não q). Exemplos: Sendo “p” igual a “João vai ao futebol”. Sendo “q” igual a “Ana vai ao cinema”. A primeira Lei de Morgan aplicada às proposições ficará: Não (João vai ao futebol e Ana vai ao cinema) é o mesmo que (João não vai ao futebol ou Ana não vai ao cinema). Resumindo: negar que “João vai ao futebol e Ana vai ao cinema” é o mesmo que afirmar que “Ou João não vai ao futebol ou Ana não vai ao cinema”.
+
+###### Segunda Lei de Morgan
+
+- A segunda lei diz que negar duas proposições ligadas por “ou” é o mesmo que negar as duas proposições e juntá-las com “e”. A representação simbólica é a seguinte: ~ (p ? q) = (~ p) ? (~ q) Em outras palavras: Não (p ou q) é igual a (não p) e (não q). Exemplos: Não (João vai ao futebol ou Ana vai ao cinema) é o mesmo que (João não vai ao futebol e Ana não vai ao cinema). Ou seja,  negar que “João vai ao futebol ou Ana vai ao cinema” é igual a afirmar que "João não vai ao futebol e Ana não vai ao cinema”. leis de morgan
