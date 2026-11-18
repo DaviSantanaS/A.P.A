@@ -2,7 +2,7 @@
 
 Objetivo: entender cada método, praticar N exercícios e escrever respostas nota 10.
 Como usar: leia a receita do tema, resolva o exercício seguindo os passos na ordem e confira com o "modelo de resposta".
-Estado: Tema 1 (Emparelhamentos) em construção (Ex. 1 a 4 feitos). Temas 2 a 5 serão preenchidos conforme formos resolvendo.
+Estado: Tema 1 (Emparelhamentos, Ex. 1 a 4), Tema 2 (Fluxos, Ex. 7 a 12c e 43) e Tema 3 (Euler e Carteiro Chinês, Ex. 13a, 14, 15) feitos. Falta: Ex. 5 e 6, PCV (4) e Coloração (5).
 
 ---
 
@@ -118,7 +118,82 @@ Resultado do Ex. 4 (Ana: Cálculo, Álgebra / Bruno: Álgebra / Carla: Cálculo,
 
 ---
 
-## 2. Fluxos em Redes — (a preencher)
-## 3. Grafos Eulerianos e Carteiro Chinês — (a preencher)
+## 2. Fluxos em Redes
+
+### 2.1 Definições
+- Rede: digrafo com origem s, destino t e capacidade c(e) ≥ 0. Fluxo f: 0 ≤ f(e) ≤ c(e) e conservação (em todo vértice que não é s nem t, entra = sai). Valor |f| = o que sai de s.
+- Folga de e = c(e) − f(e). Aresta saturada: f = c.
+- Gargalo de um caminho = menor folga (ou menor capacidade residual) das suas arestas. Empurra-se o gargalo ao longo do caminho INTEIRO.
+- Corte (S, S̄): s ∈ S, t ∈ S̄. Capacidade c(S,S̄) = soma das capacidades das arestas que SAEM de S para S̄ (as que entram em S não contam). |f| = f(S,S̄) − f(S̄,S) ≤ c(S,S̄).
+- "Arestas do corte" é o nome certo; "gargalo" é só o menor valor de um caminho.
+
+### 2.2 Rede residual (cai na prova)
+Para cada aresta u→v com fluxo f e capacidade c:
+- se c − f > 0: aresta de FRENTE u→v com capacidade c − f;
+- se f > 0: aresta de VOLTA v→u com capacidade f (desfazer fluxo).
+Uma aresta original gera até 2 arestas na residual (saturada: só volta; vazia: só frente).
+Passo a passo: (1) escreva f/c de todas as arestas; (2) monte a residual, aresta por aresta; (3) BFS a partir de s na residual (frente e volta); (4) se t é alcançado, tire um caminho P, empurre o gargalo e atualize; se não é, o fluxo é máximo.
+
+### 2.3 Maximal x máximo
+- Maximal: nenhum caminho s→t só com folga para frente; todo caminho tem uma aresta saturada. Máximo: nenhum caminho s→t na residual COM as arestas de volta; equivale a existir corte de mesma capacidade.
+- Máximo ⇒ maximal; a volta é falsa. Um fluxo pode ter "ciclo" que satura arestas sem levar nada a t (maximal e não máximo).
+- Corte mínimo: S = vértices alcançados pela BFS a partir de s na residual FINAL. Some as capacidades ORIGINAIS das arestas de S para fora; deve dar |f|. (O professor exige que o corte venha da BFS na residual.)
+- Se a BFS usar só arestas de frente, o conjunto pode ser menor que o certo e a soma não bate com |f|: falta olhar as arestas de volta.
+
+### 2.4 Ford–Fulkerson e Edmonds–Karp (Ex. 12c)
+- Ford–Fulkerson: qualquer caminho aumentante na residual; repete até não haver. Edmonds–Karp: o mesmo, mas SEMPRE o caminho com menos arestas (BFS).
+- Rede s→a, s→b, a→t, b→t = C e a→b = 1: |f_max| = 2C, corte S = {s}. FF alternando s→a→b→t e s→b→a→t (este usa a volta b→a, que cancela a→b) tem gargalo 1 sempre: 2C iterações. Edmonds–Karp: s→a→t (C) e s→b→t (C): 2 iterações.
+
+### 2.5 Exemplo completo (Ex. 43)
+Rede: s→v1 4, s→v2 4, s→v3 3, v1→v3 5, v3→v2 2, v2→v3 3, v4→v1 4, v3→v4 4, v2→t 3, v4→t 6.
+- Máximo = 7 (por exemplo s–v2–t 3, s–v1–v3–v4–t 4). Residual final: de s só se alcança v2, v3 e, pela volta v3→v1, também v1. S = {s, v1, v2, v3}, S̄ = {v4, t}. Arestas de S para fora: v2→t (3) + v3→v4 (4) = 7. v4→v1 entra em S e não conta.
+- Maximal e não máximo (valor 3): ciclo de 4 em v3→v4→v1→v3, mais s→v3→v2→t com 2 e s→v2→t com 1. v2→t e v3→v4 saturadas, então todo caminho s–t está bloqueado. Caminho aumentante na residual: s→v1→v4→t (usa a volta v1→v4), gargalo 4, leva a 7.
+- Um fluxo montado só com caminhos s–t, a partir do zero, nesta rede sempre chega a 7.
+
+### 2.6 Modelagem em fluxo (Ex. 10 e 11)
+- Várias origens/destinos: super-origem s0 com arestas s0→Fi (capacidade = produção) e super-destino t com arestas Lj→t (capacidade = demanda).
+- Capacidade de VÉRTICE (depósito): divida em entrada e saída, com a aresta di_ent→di_sai de capacidade do depósito; as rotas chegam na entrada e saem pela saída. Rota direta (ex. F2→L3) vai direto.
+- Caminhos disjuntos em arestas: capacidade 1 em TODAS as arestas; o máximo de caminhos = valor do fluxo máximo. Para provar que não existem k caminhos, exiba um corte de capacidade menor que k.
+- Para provar o valor: exiba um fluxo (conferindo a conservação vértice por vértice) E um corte da mesma capacidade.
+- Ex. 11 (b): fluxo máximo 12 de 13 de demanda. Corte: {s0, F1, F2, D1_ent, D2_ent}, arestas D1_ent→D1_sai (6), D2_ent→D2_sai (5) e F2→L3 (1). (c) Com D2 = 6 passa a ser possível 13.
+
+---
+
+## 3. Grafos Eulerianos e Carteiro Chinês
+
+### 3.1 Vocabulário
+Passeio: pode repetir arestas e vértices. Trilha: não repete aresta. Circuito: trilha fechada. Caminho: não repete vértice. Ciclo: circuito sem repetir vértice.
+
+### 3.2 Critérios (grafo conexo)
+- Circuito euleriano ⇔ conexo e TODOS os graus pares (0 vértices ímpares).
+- Trilha euleriana aberta ⇔ conexo e exatamente 2 vértices de grau ímpar (os extremos).
+- Soma dos graus = 2|E|. Número de ímpares é sempre par.
+- Kn: grau n−1. Circuito se n ímpar; trilha aberta só se n = 2; n par ≥ 4: nenhum.
+- 4-regular com 6 vértices (octaedro): 12 arestas.
+
+### 3.3 Hierholzer (Ex. 14)
+Regras: parta do vértice dado; em cada vértice vá pelo vizinho de menor letra cuja ARESTA ainda não foi usada (vértice pode repetir); pare quando travar (sempre de volta ao início). Se sobraram arestas, o primeiro vértice do circuito, na ordem em que foi percorrido, com aresta livre é a partida do novo circuito; ele é encaixado no lugar daquele vértice.
+Octaedro (a–b, a–c, a–d, a–e, b–c, b–e, b–f, c–d, c–f, d–e, d–f, e–f), a partir de a:
+- Circuito 1: a b c a d c f b e a (9 arestas). Sobraram de, df, ef.
+- Circuito 2 (partindo de d): d e f d.
+- Final: a b c a d e f d c f b e a (12 arestas).
+- (a) conexo e todos os graus 4, logo euleriano. (c) O − ab: a e b com grau 3, os demais 4; sem circuito, com trilha euleriana de a a b, por exemplo a e b f c d f e d a c b.
+
+### 3.4 Carteiro Chinês fechado (Ex. 15a)
+1. Ache os vértices ímpares (sempre em número par).
+2. Calcule o caminho MÍNIMO entre cada par (não a aresta direta, que nem sempre é a mais barata).
+3. Liste todos os emparelhamentos perfeitos dos ímpares (4 ímpares: 3; 6 ímpares: 15). Cada ímpar aparece exatamente uma vez em cada emparelhamento. Some o custo de cada um e escolha o menor.
+4. Duplique as arestas dos caminhos do emparelhamento (vértices intermediários também ganham grau). Confira que todos os graus são pares.
+5. Custo = soma das arestas originais + custo duplicado. Escreva o passeio fechado (Hierholzer).
+Ex. 15a (AF7, AB9, BD5, BC4, DF3, AC2, CD1, DE2, CE6, EF8; soma 47; ímpares A, B, E, F): distâncias A–B 6 (A→C→B), E–F 5 (E→D→F), A–E 5, B–F 8, A–F 6, B–E 7. M1 = {AB,EF} = 11; M2 = {AE,BF} = 13; M3 = {AF,BE} = 13. Duplica AC, CB, ED, DF; custo 58. Passeio: A F D F E D E C B C D B A C A.
+
+### 3.5 Carteiro com partida e chegada fixas (Ex. 15b, cai na prova)
+Regra geral: os vértices a emparelhar são os ímpares do grafo com o status dos extremos trocado (um extremo ímpar sai da lista; um extremo par entra).
+Receita com a aresta fictícia X: (1) ligue os extremos com X de custo 0; (2) recalcule quem fica ímpar; (3) emparelhe esses por caminhos mínimos; (4) duplique; (5) ache o circuito euleriano com X; (6) retire X e gire o circuito para começar na origem e terminar no destino; custo = original + duplicado (X não custa).
+- Ex. 15b, A → E: A e E são ímpares, X = AE os torna pares; sobram B e F; dist(B,F) = 8 por B→D→F. Custo 47 + 8 = 55. Trilha: A B D F D B C D E C A F E.
+- Variação A → C: ímpares {B,C,E,F}; M1 = {B–C 4, E–F 5} = 9, M2 = 11, M3 = 11. Custo 47 + 9 = 56. Trilha: A B D F D E D C B C E F A C.
+
+---
+
 ## 4. Caixeiro Viajante — (a preencher)
-## 5. Coloração de Grafos — (a preencher)
+## 5. Coloração de Grafos — (a preencher; será resolvida pelo professor na sexta)
